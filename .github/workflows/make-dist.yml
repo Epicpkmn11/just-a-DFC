@@ -77,7 +77,7 @@ jobs:
         run: |
           pyinstaller --onefile just-a-DFC.py
           cd dist
-          tar.exe -acf ../just-a-DFC.Win64.zip just-a-DFC.exe
+          tar.exe -acf ../just-a-DFC.Win32.zip just-a-DFC.exe
       - name: Publish artifact
         uses: actions/upload-artifact@v2
         with:
