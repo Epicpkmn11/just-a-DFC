@@ -15,6 +15,11 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+          architecture: 'x64'
       - name: Install pyinstaller
         run: |
           pip3 install pyinstaller
@@ -35,6 +40,11 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+          architecture: 'x64'
       - name: Install pyinstaller
         run: |
           pip3 install pyinstaller
@@ -49,12 +59,17 @@ jobs:
           path: just-a-DFC.macOS.zip
           name: macos
 
-  windows:
+  win32:
     runs-on: ubuntu-latest
     name: Windows
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+          architecture: 'x86'
       - name: Install pyinstaller
         run: |
           pip3 install pyinstaller
@@ -62,9 +77,34 @@ jobs:
         run: |
           pyinstaller --onefile just-a-DFC.py
           cd dist
-          zip ../just-a-DFC.Windows.zip just-a-DFC.exe
+          zip ../just-a-DFC.Win32.zip just-a-DFC.exe
       - name: Publish artifact
         uses: actions/upload-artifact@v2
         with:
-          path: just-a-DFC.Windows.zip
-          name: windows
+          path: just-a-DFC.Win32.zip
+          name: win32
+
+win64:
+    runs-on: ubuntu-latest
+    name: Windows
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+          architecture: 'x86'
+      - name: Install pyinstaller
+        run: |
+          pip3 install pyinstaller
+      - name: Make binary
+        run: |
+          pyinstaller --onefile just-a-DFC.py
+          cd dist
+          zip ../just-a-DFC.Win64.zip just-a-DFC.exe
+      - name: Publish artifact
+        uses: actions/upload-artifact@v2
+        with:
+          path: just-a-DFC.Win64.zip
+          name: win64
