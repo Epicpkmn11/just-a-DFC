@@ -1,0 +1,70 @@
+name: Make distribution binaries
+
+on:
+  push:
+    branches: ["*"]
+    paths-ignore:
+      - README.md
+  release:
+    types: [created]
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    name: Linux
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Install pyinstaller
+        run: |
+          pip3 install pyinstaller
+      - name: Make binary
+        run: |
+          pyinstaller --onefile just-a-DFC.py
+          cd dist
+          zip ../just-a-DFC.Linux-amd64.zip just-a-DFC
+      - name: Publish artifact
+        uses: actions/upload-artifact@v2
+        with:
+          path: just-a-DFC.Linux-amd64.zip
+          name: linux
+
+  macos:
+    runs-on: macos-latest
+    name: macOS
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Install pyinstaller
+        run: |
+          pip3 install pyinstaller
+      - name: Make binary
+        run: |
+          pyinstaller --onefile just-a-DFC.py
+          cd dist
+          zip ../just-a-DFC.macOS.zip just-a-DFC
+      - name: Publish artifact
+        uses: actions/upload-artifact@v2
+        with:
+          path: just-a-DFC.macOS.zip
+          name: macos
+
+  windows:
+    runs-on: ubuntu-latest
+    name: Windows
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Install pyinstaller
+        run: |
+          pip3 install pyinstaller
+      - name: Make binary
+        run: |
+          pyinstaller --onefile just-a-DFC.py
+          cd dist
+          zip ../just-a-DFC.Windows.zip just-a-DFC.exe
+      - name: Publish artifact
+        uses: actions/upload-artifact@v2
+        with:
+          path: just-a-DFC.Windows.zip
+          name: windows
