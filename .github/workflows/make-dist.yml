@@ -60,7 +60,7 @@ jobs:
           name: macos
 
   win32:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     name: Windows
     steps:
       - name: Checkout repo
@@ -84,8 +84,8 @@ jobs:
           path: just-a-DFC.Win32.zip
           name: win32
 
-win64:
-    runs-on: ubuntu-latest
+  win64:
+    runs-on: windows-latest
     name: Windows
     steps:
       - name: Checkout repo
